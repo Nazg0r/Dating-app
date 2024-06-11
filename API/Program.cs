@@ -1,15 +1,28 @@
-var builder = WebApplication.CreateBuilder(args);
+using API.Data;
+using Microsoft.EntityFrameworkCore;
 
-// Add services to the container.
+internal class Program
+{
+	private static void Main(string[] args)
+	{
+		var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+		// Add services to the container.
 
-var app = builder.Build();
+		builder.Services.AddControllers();
+		builder.Services.AddDbContext<DataContext>(opt =>
+		{
+			opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+		});
 
-app.UseHttpsRedirection();
+		var app = builder.Build();
 
-app.UseAuthorization();
+		app.UseHttpsRedirection();
 
-app.MapControllers();
+		app.UseAuthorization();
 
-app.Run();
+		app.MapControllers();
+
+		app.Run();
+	}
+}
