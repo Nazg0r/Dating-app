@@ -1,1 +1,8 @@
 <h1>{{title}}</h1>
+
+<p>Registered users:</p>
+<ul>
+  @for(user of users; track $index){
+  <li> {{user.name}}</li>
+  }
+</ul>
