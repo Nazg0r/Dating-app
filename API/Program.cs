@@ -1,4 +1,6 @@
 using API.Data;
+using API.Interfaces;
+using API.Services;
 using Microsoft.EntityFrameworkCore;
 
 internal class Program
@@ -15,6 +17,7 @@ internal class Program
 		{
 			opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 		});
+		builder.Services.AddScoped<ITokenService, TokenService>();
 
 		var app = builder.Build();
 
